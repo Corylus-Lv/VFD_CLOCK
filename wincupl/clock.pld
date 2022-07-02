@@ -1,0 +1,45 @@
+Name     Clock ;
+PartNo   00 ;
+Date     2022/06/14 ;
+Revision 01 ;
+Designer Corylus-Lv ;
+Company  SSS ;
+Assembly None ;
+Location  ;
+Device   G16V8 ;
+
+
+/****************************************************************/
+/*                                                              */
+/* LM8363 Clock control.                                        */
+/*                                                              */
+/****************************************************************/
+
+/** Inputs **/
+
+Pin 1 = Clk50;                  /* 50Hz Clock        */
+Pin 2 = Set_sw;                 /* Set switch        */
+Pin 3 = Sec_sw;                 /* Second switch     */
+Pin 4 = Alm1_sw;                /* Alarm 1 switch    */
+Pin 5 = Alm2_sw;                /* Alarm 2 switch    */
+Pin 6 = MD_sw;                  /* Month/Date switch */
+Pin 7 = Sleep_sw;               /* Sleep switch      */
+Pin 8 = Upper_sw;               /* Upper switch      */
+Pin 9 = Lower_sw;               /* Lower switch      */
+
+/** Outputs **/
+
+Pin 12 = Sec_out;               /* Second output     */
+Pin 13 = Alm1_out;              /* Alarm1 output     */
+Pin 14 = Alm2_out;              /* Alarm2 output     */
+Pin 15 = Sleep_out;             /* Sleep output      */
+Pin 16 = Upper_out;             /* Upper output      */
+Pin 17 = Lower_out;             /* Lower output      */
+
+
+Sec_out   = (!Sec_sw & (Clk50 # !Set_sw)) # (!MD_sw & (Clk50 # !Set_sw));
+Alm1_out  = !Alm1_sw & (Clk50 # !Set_sw);
+Alm2_out  = (!Alm2_sw & (Clk50 # !Set_sw)) # (!MD_sw & (Clk50 # !Set_sw));
+Sleep_out = !Sleep_sw & (Clk50 # !Set_sw);
+Upper_out = !Upper_sw & !Set_sw;
+Lower_out = !Lower_sw & !Set_sw;
